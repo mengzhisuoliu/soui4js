@@ -1,0 +1,1 @@
+.\release\soui4js-host.exe .\wizard
