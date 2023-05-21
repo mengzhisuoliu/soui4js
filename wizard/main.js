@@ -44,23 +44,6 @@ class MainDialog extends soui4.JsHostWnd{
 		let workDir = g_workDir.substring(0,pos);
 		os.mkdir(strDest+"\\.vscode");
 		{
-		let cmd = workDir+"/Release/soui4js-host.exe ${workspaceFolder}";
-		cmd=cmd.replace(/\\/g,"/");
-		console.log(cmd);
-		let task = {"version": "2.0.0",
-			"tasks": [
-				{
-					"label": "soui4js",
-					"type":"shell",
-					"command": cmd
-				}
-			]};
-		let taskStr = JSON.stringify(task);
-		let f = std.open(strDest+"\\.vscode\\tasks.json", "w");
-		f.puts(taskStr);
-		f.close();
-		}
-		{
 
 		let soui4js_host = workDir+"/Release/soui4js-host.exe";
 		let launch={
