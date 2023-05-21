@@ -42,6 +42,8 @@ class MainDialog extends soui4.JsHostWnd{
 		//prepare task.json
 		let pos = g_workDir.lastIndexOf("\\");
 		let workDir = g_workDir.substring(0,pos);
+		os.mkdir(strDest+"\\.vscode");
+		{
 		let cmd = workDir+"/Release/soui4js-host.exe ${workspaceFolder}";
 		cmd=cmd.replace(/\\/g,"/");
 		console.log(cmd);
@@ -54,11 +56,33 @@ class MainDialog extends soui4.JsHostWnd{
 				}
 			]};
 		let taskStr = JSON.stringify(task);
-		console.log("task:",taskStr);
-		os.mkdir(strDest+"\\.vscode");
 		let f = std.open(strDest+"\\.vscode\\tasks.json", "w");
 		f.puts(taskStr);
 		f.close();
+		}
+		{
+
+		let soui4js_host = workDir+"/Release/soui4js-host.exe";
+		let launch={
+		    "version": "0.2.0",
+		    "configurations": [
+		        {
+		            "name": "Launch QuickJS",
+		            "type": "quickjs",
+		            "request": "launch",
+		            "program": "${workspaceFolder}",
+		            "runtimeExecutable": soui4js_host,
+		            "address": "localhost",
+		            "port": 58585
+		        }
+		        ]
+		    };
+
+		let luanchStr = JSON.stringify(launch);
+		let f = std.open(strDest+"\\.vscode\\launch.json", "w");
+		f.puts(luanchStr);
+		f.close();
+		}
 		//luanch vscode
 		soui4.ShellExecute(this.GetHwnd(),"open","code.cmd", "-n --new-window "+strDest,strDest,soui4.SW_SHOWNORMAL);
 	}
