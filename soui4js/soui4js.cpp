@@ -6,10 +6,12 @@
 #include <string/strcpcvt.h>
 #include <commgr2.h>
 #include <Winsock2.h>
+//#include <souistd.h>
 #pragma comment(lib,"Ws2_32.lib")
 
 #include "soui4js.h"
 using namespace qjsbind;
+using namespace SOUI;
 
 void Slog(const char* szLog);
 extern "C" void js_printer(const char* szLog, int len) {
@@ -24,6 +26,22 @@ extern "C" void js_printer(const char* szLog, int len) {
     }
     else {
         SLOGI2("log") << str.c_str();
+    }
+}
+
+static void Soui4jsLog(const char* tag, const char* pLogStr, int level, const char* file, int line, const char* fun, void* retAddr)
+{
+    SApplication* theApp = SApplication::getSingletonPtr();
+    ILogMgr* pLogMgr = theApp ? theApp->GetLogManager() : NULL;
+    BOOL bLog = false;
+    if (pLogMgr && pLogMgr->prePushLog(level))
+    {
+        bLog = pLogMgr->pushLog(level, tag, pLogStr, file, line, fun, retAddr);
+    }
+    {
+        DWORD tid = GetCurrentThreadId();
+        int nLen = printf("tid=%u,%s,%s %s %s:%d\n", tid, tag, pLogStr, fun, file, line);
+        flushall();
     }
 }
 
@@ -170,7 +188,7 @@ namespace SOUI
         
 
         SApplication* pApp = SApplication::getSingletonPtr();
-        
+        Log::setLogCallback(Soui4jsLog);
         QjsMsgLoop* msgLoop = new QjsMsgLoop(m_context, NULL);
         pApp->AddMsgLoop(msgLoop, TRUE);
         msgLoop->Release();        
