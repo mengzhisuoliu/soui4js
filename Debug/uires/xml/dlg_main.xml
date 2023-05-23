@@ -3,10 +3,11 @@
 translucent="1"
 >
   <root skin="_skin.sys.wnd.bkgnd" cache="1"  width="400" height="420">
-    <caption pos="0,0,-0,30" show="1" font="adding:0">
-      <icon pos="10,8" src="ICON_LOGO:16"/>
-      <text pos="29,9">@string/title</text>
-      <imgbtn id="10" skin="_skin.sys.btn.close"    pos="-45,0" tip="close" animate="1"/>
+    <caption layout="hbox" gravity="center" padding="10,0">
+      <icon src="ICON_LOGO:16"/>
+      <text >@string/title</text>
+      <window size="0,0" weight="1"/>
+      <imgbtn id="10" skin="_skin.sys.btn.close"   tip="close" animate="1"/>
     </caption>
     <window pos="5,[2,-5,-5" layout="vbox" interval="10">
 		<text text="选择启动APP:"/>
