@@ -3,6 +3,7 @@
 #include <qjsbind.h>
 #include <event/SEvents.h>
 #include <core/SDefine.h>
+#include "exp_SRegKey.h"
 using namespace SOUI;
 
 #define SEnumInt(x) module->ExportEnumInt32(#x, x)
@@ -142,5 +143,14 @@ SEnumUint(WM_DESTROY);
 SEnumUint(WM_CLOSE);
 SEnumUint(WM_COMMAND);
 SEnumUint(WM_SYSCOMMAND);
+
+
+SEnumInt(SKEY_ROOT);
+SEnumInt(SKEY_USER);
+SEnumInt(SKEY_MACHINE);
+SEnumInt(SKEY_USERS);
+
+SEnumInt(REG_READ);
+SEnumInt(REG_WRITE);
 
 }

@@ -188,6 +188,7 @@
     <ClInclude Include="exports\exp_SAdapter.h" />
     <ClInclude Include="exports\exp_SDropTarget.h" />
     <ClInclude Include="exports\exp_SMenu.h" />
+    <ClInclude Include="exports\exp_SRegKey.h" />
     <ClInclude Include="exports\exp_SString.h" />
     <ClInclude Include="exports\exp_SEventArg.h" />
     <ClInclude Include="exports\exp_SWindow.h" />
@@ -199,6 +200,7 @@
     <ClInclude Include="exports\exp_SHostWnd.h" />
     <ClInclude Include="exports\exp_Worker.h" />
     <ClInclude Include="exports\exp_SFileOpenDlg.h" />
+    <ClInclude Include="exports\regkey.h" />
     <ClInclude Include="exports\SFuncSlot.h" />
     <ClInclude Include="exports\souidlgs.h" />
     <ClInclude Include="exports\toobj.h" />

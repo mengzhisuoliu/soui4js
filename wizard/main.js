@@ -77,10 +77,21 @@ class MainDialog extends soui4.JsHostWnd{
 		}
 	}
 
+	onBtnSetEnv(e){
+		let code = soui4.RunAsAdmin(g_workDir,"set_env.js",true);
+		if(code != 0)
+		{
+			soui4.SMessageBox(this.GetHwnd(),"设置环境变量失败","错误",soui4.MB_OK|soui4.MB_ICONERROR);
+		}else{
+			soui4.SMessageBox(this.GetHwnd(),"设置环境变量成功","提示",soui4.MB_OK|soui4.MB_ICONINFORMATION);
+		}
+	}
+
 	init(){
 		console.log("init");
 		soui4.SConnect(this.FindIChildByName("btn_create"),soui4.EVT_CMD,this,this.onBtnCreate);
 		soui4.SConnect(this.FindIChildByName("btn_pick_folder"),soui4.EVT_CMD,this,this.onBtnPickFolder);
+		soui4.SConnect(this.FindIChildByName("btn_set_env"),soui4.EVT_CMD,this,this.onBtnSetEnv);
 		this.edit_folder = this.FindIChildByName("edit_folder");
 	}
 	uninit(){

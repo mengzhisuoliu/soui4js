@@ -247,6 +247,61 @@ string GetSpecialPath(const char * pszType) {
 	return string(ret.c_str(), ret.GetLength());
 }
 
+BOOL IsRunAsAdmin()         
+{
+	SID_IDENTIFIER_AUTHORITY NtAuthority = SECURITY_NT_AUTHORITY;
+	PSID AdministratorsGroup;
+
+	BOOL  b = AllocateAndInitializeSid(
+		&NtAuthority,
+		2,
+		SECURITY_BUILTIN_DOMAIN_RID,
+		DOMAIN_ALIAS_RID_ADMINS,
+		0, 0, 0, 0, 0, 0,
+		&AdministratorsGroup);
+
+	if (b)
+	{
+		CheckTokenMembership(NULL, AdministratorsGroup, &b);
+		FreeSid(AdministratorsGroup);
+	}
+
+	return  b;
+}
+
+int RunAsAdmin(LPCSTR szFolder, LPCSTR szJs,BOOL waitEnd) {
+	TCHAR szExe[MAX_PATH] = { 0 };
+	GetModuleFileName(NULL, szExe, MAX_PATH);
+
+	SStringT strFolder = S_CA2T(szFolder, CP_UTF8);
+	SStringT strJs = S_CA2T(szJs, CP_UTF8);
+	SStringT strParam;
+	if(strJs.IsEmpty())
+		strParam.Format(_T("\"%s\""), strFolder.c_str());
+	else
+		strParam.Format(_T("\"%s\" %s"), strFolder.c_str(), strJs.c_str());
+	SHELLEXECUTEINFO sei = { 0 };
+	sei.cbSize = sizeof(SHELLEXECUTEINFO);
+	sei.fMask = SEE_MASK_NOCLOSEPROCESS | SEE_MASK_FLAG_NO_UI;
+	sei.lpVerb = _T("runas"); // 以管理员身份运行
+	sei.lpFile = szExe; // 要启动的程序
+	sei.lpParameters = strParam.c_str();
+	sei.nShow = SW_SHOWNORMAL;
+	if (!ShellExecuteEx(&sei)) {
+		// 处理启动失败的情况
+		SLOGE2("soui4js")<<"RunAsAdmin failed! err="<< GetLastError();
+		return -1;
+	}
+	int nRet = 0;
+	if (waitEnd) {
+		WaitForSingleObject(sei.hProcess, INFINITE);
+		DWORD exitCode = 0;;
+		GetExitCodeProcess(sei.hProcess, &exitCode);
+		nRet = (int)exitCode;
+	}
+	CloseHandle(sei.hProcess);
+	return nRet;
+}
 
 void Exp_Global(qjsbind::Module* module)
 {
@@ -272,5 +327,6 @@ void Exp_Global(qjsbind::Module* module)
 	module->ExportFunc("GetSpecialPath", &GetSpecialPath);
 	module->ExportFunc("ShellExecute", &SShellExecute);
 	module->ExportFunc("Fork", &SFork);
-
+	module->ExportFunc("IsRunAsAdmin", &IsRunAsAdmin);
+	module->ExportFunc("RunAsAdmin", &RunAsAdmin);
 }
