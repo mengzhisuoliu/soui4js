@@ -45,7 +45,7 @@ class MainDialog extends soui4.JsHostWnd{
 		os.mkdir(strDest+"\\.vscode");
 		{
 
-		let soui4js_host = workDir+"/Release/soui4js-host.exe";
+		let soui4js_host = workDir+"/bin/soui4js-host.exe";
 		let launch={
 		    "version": "0.2.0",
 		    "configurations": [

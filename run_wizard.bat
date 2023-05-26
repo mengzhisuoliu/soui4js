@@ -1,1 +1,1 @@
-start .\release\soui4js-host.exe .\wizard
+start .\bin\soui4js-host.exe .\wizard
