@@ -152,7 +152,7 @@ class MainDialog extends soui4.JsHostWnd{
 			this.lvAdapter = new AppLvAdapter(this);
 			lvapi.SetAdapter(this.lvAdapter);
 			lvapi.Release();
-			this.lvAdapter.LoadFromUrl("https://soime.cn/souijs/applist.xml");
+			this.lvAdapter.LoadFromUrl("https://soui4js.com/applist.xml");
 		}else if(e.GetID()==8001)//event_exit
 		{
 		}else if(e.GetID()==10000 && e.Sender().GetID()==10){
@@ -189,7 +189,7 @@ class MainDialog extends soui4.JsHostWnd{
 		if(!bDownNow){
 			//open app directly.
 			let localPath = g_workDir + "\\"+appInfo.name;
-			soui4.SShellExecute(localPath);
+			soui4.Fork(localPath);
 		}else{
 			this.isLoading = true;
 			this.download = new soui4.HttpRequest(appInfo.url,"get");
@@ -268,7 +268,7 @@ class MainDialog extends soui4.JsHostWnd{
 				f.close();
 
 				let localPath = g_workDir + "\\"+this.appInfo.name;
-				soui4.SShellExecute(localPath);
+				soui4.Fork(localPath);
 			}else{
 				soui4.SMessageBox(this.GetHwnd(),"extract failed!","error",0);
 			}

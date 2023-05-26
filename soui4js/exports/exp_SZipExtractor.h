@@ -1,5 +1,7 @@
 #pragma once
 
+BOOL MkPath(const std::string& path, const std::string& root);
+
 class SZipExtractor {
 	enum State {
 		state_get_count=0,
@@ -60,6 +62,15 @@ private:
 		ExtractInfo* info = (ExtractInfo*)lp;
 		info->iFile++;
 		size_t sz = info->pThis->m_pResProvider->GetRawBufferSize(NULL, pszFile);
+		SStringT strFile(pszFile);
+		int pos = strFile.ReverseFind('\\');
+		if (pos != -1) {
+			SStringT path = strFile.Left(pos);
+			SStringA pathU8 = S_CT2A(path, CP_UTF8);
+			SStringA rootU8 = S_CT2A(info->dstPath, CP_UTF8);
+			if (!MkPath(pathU8.c_str(), rootU8.c_str()))
+				return FALSE;
+		}
 		SStringT strTarget = info->dstPath + _T("\\") + pszFile;
 		FILE* f = NULL;
 		BOOL bOK = FALSE;

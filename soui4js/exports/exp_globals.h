@@ -303,6 +303,47 @@ int RunAsAdmin(LPCSTR szFolder, LPCSTR szJs,BOOL waitEnd) {
 	return nRet;
 }
 
+BOOL MkPath(const std::string& path,const std::string &root) {
+	SStringT strPath = S_CA2T(path.c_str(), CP_UTF8);
+	SStringT strRoot = S_CA2T(root.c_str(), CP_UTF8);
+
+	SStringT strFullPath;
+	if (!strRoot.IsEmpty()) {
+		strFullPath = strRoot;
+		if (!strFullPath.EndsWith('\\'))
+			strFullPath += '\\';
+	}
+	strPath.ReplaceChar('/', '\\');
+
+	struct _stat64i32 st;
+	int ret = _tstat(strFullPath+strPath, &st);
+	if (ret == 0 && st.st_mode & _S_IFDIR) {
+		return TRUE;
+	}
+
+	TCHAR szCurDir[MAX_PATH];
+	GetCurrentDirectory(MAX_PATH, szCurDir);
+
+	BOOL bRet = TRUE;
+	SStringTList subPaths;
+	SplitString(strPath, '\\', subPaths);
+	for (UINT i = 0; i < subPaths.GetCount(); i++) {
+		strFullPath += subPaths[i];
+		struct _stat64i32 st;
+		int ret = _tstat(strFullPath, &st);
+		if (ret != 0 || (st.st_mode & _S_IFDIR) == 0) {
+			if (!CreateDirectory(strFullPath, NULL))
+			{
+				bRet = FALSE;
+				break;
+			}
+		}
+		strFullPath += '\\';
+	}
+	SetCurrentDirectory(szCurDir);
+	return bRet;
+}
+
 void Exp_Global(qjsbind::Module* module)
 {
 	module->ExportFunc("log", &Slog);
@@ -329,4 +370,5 @@ void Exp_Global(qjsbind::Module* module)
 	module->ExportFunc("Fork", &SFork);
 	module->ExportFunc("IsRunAsAdmin", &IsRunAsAdmin);
 	module->ExportFunc("RunAsAdmin", &RunAsAdmin);
+	module->ExportFunc("MkPath", &MkPath);
 }
