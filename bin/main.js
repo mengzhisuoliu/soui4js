@@ -145,20 +145,46 @@ class MainDialog extends soui4.JsHostWnd{
 		this.isLoading = false;
 	}
 
+	onInit(){
+		let lv_applist=this.FindIChildByName("lv_applist");
+		let lvapi = soui4.QiIListView(lv_applist);
+		this.lvAdapter = new AppLvAdapter(this);
+		lvapi.SetAdapter(this.lvAdapter);
+		lvapi.Release();
+		this.lvAdapter.LoadFromUrl("https://soui4js.com/applist.xml");
+	}
+
+	onUnit(){
+		if(this.isLoading){
+			//cancel
+			this.download.Cancel();
+		}
+		let lv_applist=this.FindIChildByName("lv_applist");
+		let lvapi = soui4.QiIListView(lv_applist);
+		lvapi.SetAdapter(0);
+		lvapi.Release();
+		this.lvAdapter.uninit();
+		this.lvAdapter= null;
+
+		if(this.download != undefined){
+			this.download.cbHandler = 0;
+			this.download = null;
+		}
+		if(this.extractor != undefined){
+			this.extractor.cbHandler = 0;
+			this.extractor = null;
+		}
+	}
+
 	onEvent(e){
-		if(e.GetID()==8000){//event_init
-			let lv_applist=this.FindIChildByName("lv_applist");
-			let lvapi = soui4.QiIListView(lv_applist);
-			this.lvAdapter = new AppLvAdapter(this);
-			lvapi.SetAdapter(this.lvAdapter);
-			lvapi.Release();
-			this.lvAdapter.LoadFromUrl("https://soui4js.com/applist.xml");
-		}else if(e.GetID()==8001)//event_exit
+		if(e.GetID()==soui4.EVT_INIT){//event_init
+			this.onInit();
+		}else if(e.GetID()==soui4.EVT_EXIT)//event_exit
 		{
-		}else if(e.GetID()==10000 && e.Sender().GetID()==10){
-			this.onEvt = 0;
-			this.uninit();
+			this.onUnit();
+		}else if(e.GetID()==soui4.EVT_CMD && e.Sender().GetID()==10){
 			this.DestroyWindow();
+			this.onEvt = 0;
 		}
 		return false;
 	}
@@ -215,7 +241,7 @@ class MainDialog extends soui4.JsHostWnd{
 
 	doExtractor(){
 		this.extractor = new soui4.SZipExtractor();
-			if(this.extractor.Open(false,this.localFile,""))
+			if(this.extractor.Open(true,this.localFile,""))
 			{
 				this.extractor.cbHandler = this;
 				this.extractor.onMsg = this.onExtractMsg;
@@ -241,6 +267,7 @@ class MainDialog extends soui4.JsHostWnd{
 		}else if(state == 2)//finish
 		{//extract zip to dir.
 			this.doExtractor();
+			this.isLoading = false;
 		}else{
 			this.isLoading = false;
 			soui4.SMessageBox(this.GetHwnd(),"download file failed","error",0);
@@ -272,26 +299,8 @@ class MainDialog extends soui4.JsHostWnd{
 			}else{
 				soui4.SMessageBox(this.GetHwnd(),"extract failed!","error",0);
 			}
-			this.isLoading = false;
 		}
 		iprog.Release();
-	}
-	uninit(){
-		let lv_applist=this.FindIChildByName("lv_applist");
-		let lvapi = soui4.QiIListView(lv_applist);
-		lvapi.SetAdapter(0);
-		lvapi.Release();
-		this.lvAdapter.uninit();
-		this.lvAdapter= null;
-
-		if(this.download != undefined){
-			this.download.cbHandler = 0;
-			this.download = null;
-		}
-		if(this.extractor != undefined){
-			this.extractor.cbHandler = 0;
-			this.extractor = null;
-		}
 	}
 };
 
