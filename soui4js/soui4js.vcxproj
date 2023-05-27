@@ -192,12 +192,12 @@
     <ClInclude Include="exports\exp_IXml.h" />
     <ClInclude Include="exports\exp_MsgHandlerProxy.h" />
     <ClInclude Include="exports\exp_SAdapter.h" />
-    <ClInclude Include="exports\exp_SAnimatorListener.h" />
     <ClInclude Include="exports\exp_SDropTarget.h" />
     <ClInclude Include="exports\exp_SMenu.h" />
     <ClInclude Include="exports\exp_SRegKey.h" />
     <ClInclude Include="exports\exp_SString.h" />
     <ClInclude Include="exports\exp_SEventArg.h" />
+    <ClInclude Include="exports\exp_SValueAnimator.h" />
     <ClInclude Include="exports\exp_SWindow.h" />
     <ClInclude Include="exports\exp_Sxml.h" />
     <ClInclude Include="exports\exp_SZipExtractor.h" />
