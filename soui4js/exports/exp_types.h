@@ -18,11 +18,7 @@ namespace qjsbind {
 
 	template<>
 	Value NewValue(Context& context, ISwndContainer * v){
-#ifdef _WIN64
-		return NewValue(context, (int64_t)v);
-#else
-		return NewValue(context,(int32_t)v);
-#endif
+		return NewValue(context, (void*)v);
 	}
 
 	template<typename T>
