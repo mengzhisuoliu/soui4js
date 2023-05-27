@@ -106,7 +106,7 @@ namespace SOUI {
 		Exp_FileOpenDlg(module);
 		Exp_SRegKey(module);
 		Exp_SAnimatorListener(module);
-
+		Exp_SAnimatorUpdateListener(module);
 		return TRUE;
 	}
 

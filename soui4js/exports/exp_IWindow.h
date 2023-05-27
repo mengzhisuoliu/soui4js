@@ -121,6 +121,7 @@ void Exp_IWindow(qjsbind::Module* module)
 	jsCls.AddFunc("SwndProc", &IWindow::SwndProc);
 	jsCls.AddFunc("SetSwndProc", &IWindow::SetSwndProc);
 	jsCls.AddFunc("GetHostHwnd", &IWindow::GetHostHwnd);
+	jsCls.AddFunc("GetContainer", &IWindow::GetContainer);
 	jsCls.AddFunc("RegisterDragDrop", &IWindow::RegisterDragDrop);
 	jsCls.AddFunc("UnregisterDragDrop", &IWindow::UnregisterDragDrop);
 

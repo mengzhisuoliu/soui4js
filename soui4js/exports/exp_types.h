@@ -16,6 +16,15 @@ namespace qjsbind {
 		return undefined_value;
 	}
 
+	template<>
+	Value NewValue(Context& context, ISwndContainer * v){
+#ifdef _WIN64
+		return NewValue(context, (int64_t)v);
+#else
+		return NewValue(context,(int32_t)v);
+#endif
+	}
+
 	template<typename T>
 	Value NewSObject(Context& context, T& v) {
 		JSClassID clsId = JsClass<T>::class_id();
