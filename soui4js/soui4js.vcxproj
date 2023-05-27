@@ -192,6 +192,7 @@
     <ClInclude Include="exports\exp_IXml.h" />
     <ClInclude Include="exports\exp_MsgHandlerProxy.h" />
     <ClInclude Include="exports\exp_SAdapter.h" />
+    <ClInclude Include="exports\exp_SAnimatorListener.h" />
     <ClInclude Include="exports\exp_SDropTarget.h" />
     <ClInclude Include="exports\exp_SMenu.h" />
     <ClInclude Include="exports\exp_SRegKey.h" />

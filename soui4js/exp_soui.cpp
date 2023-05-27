@@ -49,6 +49,7 @@ using namespace qjsbind;
 #include "exports/exp_SZipExtractor.h"
 #include "exports/exp_SFileOpenDlg.h"
 #include "exports/exp_SRegKey.h"
+#include "exports/exp_SAnimatorListener.h"
 
 namespace SOUI {
 
@@ -104,6 +105,8 @@ namespace SOUI {
 		Exp_SZipExtractor(module);
 		Exp_FileOpenDlg(module);
 		Exp_SRegKey(module);
+		Exp_SAnimatorListener(module);
+
 		return TRUE;
 	}
 
