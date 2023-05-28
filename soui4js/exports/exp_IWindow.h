@@ -88,6 +88,8 @@ void Exp_IWindow(qjsbind::Module* module)
 	jsCls.AddFunc("InsertIChild", &IWindow::InsertIChild);
 	jsCls.AddFunc("RemoveIChild", &IWindow::RemoveIChild);
 	jsCls.AddFunc("CreateChildrenFromXml", &IWindow::CreateChildrenFromXml);
+	jsCls.AddFunc("CreateChildrenFromResId", &IWindow::CreateChildrenFromResId);
+
 	jsCls.AddFunc("FindIChildByID", &IWindow::FindIChildByID);
 	jsCls.AddFunc("FindIChildByName", &IWindow::FindIChildByNameA);
 

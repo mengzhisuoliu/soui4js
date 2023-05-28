@@ -422,6 +422,8 @@ class SOUI_EXP SWindow
 
     STDMETHOD_(BOOL, CreateChildrenFromXml)(THIS_ LPCWSTR pszXml) OVERRIDE;
 
+	STDMETHOD_(BOOL, CreateChildrenFromResId)(THIS_ LPCTSTR pszResId) OVERRIDE;
+
     STDMETHOD_(BOOL, InitFromXml)(THIS_ IXmlNode *pNode) OVERRIDE;
 
     STDMETHOD_(BOOL, GetAttribute)(THIS_ LPCWSTR pszName, IStringW *strValue) SCONST OVERRIDE;
@@ -456,6 +458,8 @@ class SOUI_EXP SWindow
 	STDMETHOD_(void, SetSwndProc)(THIS_ FunSwndProc swndProc) OVERRIDE;
 
 	STDMETHOD_(HWND, GetHostHwnd)(THIS) OVERRIDE;
+
+	STDMETHOD_(ITimelineHandlersMgr *,GetTimelineHandlersMgr)(THIS) OVERRIDE;
 
 	STDMETHOD_(BOOL,RegisterDragDrop)(THIS_ IDropTarget *pDragTarget) OVERRIDE;
 	STDMETHOD_(BOOL,UnregisterDragDrop)(THIS) OVERRIDE;

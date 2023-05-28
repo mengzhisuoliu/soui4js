@@ -6,10 +6,19 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "qjsbind", "qjsbind\qjsbind.vcxproj", "{2F8BF94F-D2ED-4B3D-898B-54DEAA8F3008}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "utils", "utils\utils.vcxproj", "{A17C90EF-AA12-4ABC-9DAB-6B5A04CB0FD7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5F779A96-DF25-3603-9457-2FCDF7EFA1A5} = {5F779A96-DF25-3603-9457-2FCDF7EFA1A5}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "soui4js", "soui4js\soui4js.vcxproj", "{5F779A96-DF25-3603-9457-2FCDF7EFA1A5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2F8BF94F-D2ED-4B3D-898B-54DEAA8F3008} = {2F8BF94F-D2ED-4B3D-898B-54DEAA8F3008}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "soui4js-host", "soui4js-host\soui4js-host.vcxproj", "{B55B95B6-FA1C-4EBF-A935-894C63554A87}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5F779A96-DF25-3603-9457-2FCDF7EFA1A5} = {5F779A96-DF25-3603-9457-2FCDF7EFA1A5}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
