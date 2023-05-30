@@ -119,23 +119,12 @@ void Exp_SEventArg(qjsbind::Module* module) {
 	DEF_CAST_IOBJ(module, EventItemPanelHover); }
 
 
-	{JsClass<EventLButtonDown> jsCls = module->ExportClass<EventLButtonDown>("EventLButtonDown");
+	{JsClass<EventMouseClick> jsCls = module->ExportClass<EventMouseClick>("EventMouseClick");
 	jsCls.Init(JsClass<IEvtArgs>::class_id());
-	jsCls.AddGetSet("pt", &EventLButtonDown::pt);
-	jsCls.AddGetSet("uFlags", &EventLButtonDown::uFlags);
-	DEF_CAST_IOBJ(module, EventLButtonDown); }
-
-	{JsClass<EventDbClick> jsCls = module->ExportClass<EventDbClick>("EventDbClick");
-	jsCls.Init(JsClass<IEvtArgs>::class_id());
-	jsCls.AddGetSet("pt", &EventDbClick::pt);
-	jsCls.AddGetSet("uFlags", &EventDbClick::uFlags);
-	DEF_CAST_IOBJ(module, EventDbClick); }
-
-	{JsClass<EventLButtonUp> jsCls = module->ExportClass<EventLButtonUp>("EventLButtonUp");
-	jsCls.Init(JsClass<IEvtArgs>::class_id());
-	jsCls.AddGetSet("pt", &EventLButtonUp::pt);
-	jsCls.AddGetSet("uFlags", &EventLButtonUp::uFlags);
-	DEF_CAST_IOBJ(module, EventLButtonUp); }
+	jsCls.AddGet("pt", &EventMouseClick::pt);
+	jsCls.AddGet("uFlags", &EventMouseClick::uFlags);
+	jsCls.AddGet("clickId", &EventMouseClick::clickId);
+	DEF_CAST_IOBJ(module, EventMouseClick); }
 
 	{JsClass<EventCtxMenu> jsCls = module->ExportClass<EventCtxMenu>("EventCtxMenu");
 	jsCls.Init(JsClass<IEvtArgs>::class_id());

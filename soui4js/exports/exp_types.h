@@ -21,6 +21,11 @@ namespace qjsbind {
 		return NewValue(context, (void*)v);
 	}
 
+	template<>
+	Value NewValue(Context& context, MouseClickId v) {
+		return NewValue(context, (int)v);
+	}
+
 	template<typename T>
 	Value NewSObject(Context& context, T& v) {
 		JSClassID clsId = JsClass<T>::class_id();
@@ -86,6 +91,7 @@ namespace qjsbind {
 	WeakValue::operator SOUI::RequestType() const {
 		return (SOUI::RequestType)ToInt32();
 	}
+
 	template<>
 	WeakValue::operator SOUI::HttpError() const {
 		return (SOUI::HttpError)ToInt32();
