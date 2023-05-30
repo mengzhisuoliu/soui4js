@@ -124,6 +124,7 @@ void Exp_SEventArg(qjsbind::Module* module) {
 	jsCls.AddGet("pt", &EventMouseClick::pt);
 	jsCls.AddGet("uFlags", &EventMouseClick::uFlags);
 	jsCls.AddGet("clickId", &EventMouseClick::clickId);
+	jsCls.AddGet("bHover", &EventMouseClick::bHover);
 	DEF_CAST_IOBJ(module, EventMouseClick); }
 
 	{JsClass<EventCtxMenu> jsCls = module->ExportClass<EventCtxMenu>("EventCtxMenu");
