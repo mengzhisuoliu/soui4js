@@ -15,7 +15,12 @@ translucent="1"
 			<template itemHeight="110" layout="hbox" interval="10" gravity="center" skin="skin_item_bk" trackMouseEvent="1">
 				<img size="64,64" name="img_icon"/>
 				<window size="0,-2" weight="1" layout="vbox" interval="5">
-					<text name="txt_name"/>
+					<window size="-2,-1" layout="hbox" interval="2">
+						<text name="txt_name"/>
+						<text text="["/>
+						<text name="txt_size" colorText="@color/red"/>
+						<text text="]"/>
+					</window>
 					<text name="txt_ver"/>
 					<text name="txt_md5"/>
 					<text name="txt_desc" size="-2,0" weight="1" multiLines="1" clipClient="1" dot="1" valign="top"/>

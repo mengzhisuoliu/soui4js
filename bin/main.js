@@ -26,6 +26,8 @@ class AppLvAdapter extends soui4.SLvAdapter{
 		wndMd5.SetWindowText(appInfo.md5);
 		let wndDesc = pItem.FindIChildByName("txt_desc");
 		wndDesc.SetWindowText(appInfo.desc);
+		let wndSize = pItem.FindIChildByName("txt_size");
+		wndSize.SetWindowText(appInfo.size);
 		if(appInfo.img!=null){
 			let wndImg = pItem.FindIChildByName("img_icon");
 			let imgApi = soui4.QiIImageWnd(wndImg);
@@ -63,13 +65,17 @@ class AppLvAdapter extends soui4.SLvAdapter{
 			let xmlApp = xml.Root().FirstChild().FirstChild();
 			while(!xmlApp.IsEmpty()){
 				let name = xmlApp.Name();
-				let attrUrl = xmlApp.Attribute("url",false);
+				let attrName = xmlApp.Attribute("name",false);
+				if(!attrName.IsEmpty()){
+					name = attrName.Value();
+				}
 				let url = xmlApp.Attribute("url",false).Value();
 				let ver = xmlApp.Attribute("ver",false).Value();
 				let icon = xmlApp.Attribute("icon",false).Value();
 				let md5 = xmlApp.Attribute("md5",false).Value();
 				let desc = xmlApp.Attribute("desc",false).Value();
-				let appInfo = {"name":name,"url":url,"ver":ver,"icon":icon,"md5":md5,"desc":desc,"img":null};
+				let size = xmlApp.Attribute("size",false).Value();
+				let appInfo = {"name":name,"url":url,"ver":ver,"icon":icon,"md5":md5,"desc":desc,"img":null,"size":size};
 				this.appList.push(appInfo);
 				xmlApp = xmlApp.NextSibling();
 			}
