@@ -3,6 +3,7 @@
 #include "fileop.h"
 #include "exp_base64.h"
 #include "urlcode.h"
+#include "sysapi.h"
 
 using namespace qjsbind;
 
@@ -22,4 +23,6 @@ void Exp_Utils(qjsbind::Module* module)
 
 	module->ExportFunc("UrlDecode", &urldecode);
 	module->ExportFunc("UrlEncode", &urlencode);
+
+	module->ExportFunc("PlaySound", &sysapi::JsPlaySound);
 }
