@@ -34,7 +34,7 @@ class Soui4Js : public TObjRefImpl<IScriptModule>
         String object holding the filename of the script file that is to be executed
         
     */
-    STDMETHOD_(void,executeScriptFile)(THIS_ LPCSTR pszScriptFile)  OVERRIDE;
+    STDMETHOD_(BOOL,executeScriptFile)(THIS_ LPCSTR pszScriptFile)  OVERRIDE;
 
     /*!
     \brief

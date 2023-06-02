@@ -114,7 +114,7 @@ private:
 		m_pResProvider->EnumFile(EnumFileCountCB, (LPARAM) & fileCount);
 		STaskHelper::post(m_msgLoop, this, &SZipExtractor::_OnExtractCallback,state_get_count, fileCount,0);
 		//extract files.
-		SStringT strPath2 = S_CA2T(strPath.c_str());
+		SStringT strPath2 = S_CA2T(strPath.c_str(),CP_UTF8);
 
 		ExtractInfo info = { this,strPath2,0,fileCount,FALSE};
 		m_pResProvider->EnumFile(EnumFileExtractCB, (LPARAM)&info);

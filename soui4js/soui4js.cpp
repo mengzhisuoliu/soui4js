@@ -108,18 +108,18 @@ namespace SOUI
         return NULL;
     }
 
-    void Soui4Js::executeScriptFile( LPCSTR pszScriptFile )
+    BOOL Soui4Js::executeScriptFile( LPCSTR pszScriptFile )
     {
         SStringW str = S_CA2W(pszScriptFile, CP_UTF8);
         FILE* f = _wfopen(str.c_str(), L"rb");
-        if (!f) return;
+        if (!f) return FALSE;
         fseek(f, 0, SEEK_END);
         long len = ftell(f);
         fseek(f, 0, SEEK_SET);
         char* buf = (char*)malloc(len+1);
         if (!buf) {
             fclose(f);
-            return;
+            return FALSE;
         }
         int nReaded=fread(buf, 1, len, f);
         buf[nReaded] = 0;
@@ -134,7 +134,9 @@ namespace SOUI
         free(buf);
         if (val.IsException()) {
             m_context->DumpError();
+            return FALSE;
         }
+        return TRUE;
     }
 
 
